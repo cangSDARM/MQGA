@@ -19,6 +19,10 @@ on:
   # 允许手动运行工作流
   workflow_dispatch:
 
+# 授予 GITHUB_TOKEN 创建 Release 的权限
+permissions:
+  contents: write
+
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -194,7 +198,7 @@ jobs:
       - name: Download LSPatch | 下载 LSPatch
         run: |
           if [ "${{ env.LSPATCH_REPO }}" = "JingMatrix/LSPatch" ]; then
-            gh release download -O LSPatch.jar --repo "JingMatrix/LSPatch" --pattern 'lspatch.jar'
+            gh release download -O LSPatch.jar --repo "JingMatrix/LSPatch" --pattern 'lspatch-*-release.jar'
           else
             gh release download -O LSPatch.jar --repo "${{ env.LSPATCH_REPO }}" --pattern '*.jar'
           fi
